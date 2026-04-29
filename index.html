@@ -299,62 +299,62 @@
 const STEPS = [
   {
     ja: { title: "DHを合わせる", desc: "ダイハイト（DH）を金型に合った値に設定します。", tip: "" },
-    id: { title: "Sesuaikan DH (Die Height)", desc: "Atur Die Height (DH) sesuai dengan cetakan yang digunakan.", tip: "" },
+    id: { title: "MENCOCOKAN DH", desc: "", tip: "" },
     image: "images/step01.jpg"
   },
   {
     ja: { title: "シャンクを入れる（前と横を見て確認する）", desc: "シャンクを差し込み、前方と側方の両方から位置を目視で確認します。", tip: "" },
-    id: { title: "Pasang shank (periksa dari depan dan samping)", desc: "Masukkan shank, lalu periksa posisinya dari depan dan dari samping.", tip: "" },
+    id: { title: "MASUKAN SHANKU (LIHAT BAGIAN DEPAN DAN SAMPING)", desc: "", tip: "" },
     image: "images/step02.jpg"
   },
   {
     ja: { title: "下死点にする（180～183）", desc: "プレスを下死点（180～183）まで降ろします。", tip: "" },
-    id: { title: "Posisikan ke titik mati bawah (180–183)", desc: "Turunkan press ke titik mati bawah (180–183).", tip: "" },
+    id: { title: "TURUNKAN KE BAWAH (180~183)", desc: "", tip: "" },
     image: "images/step03.jpg"
   },
   {
     ja: { title: "上型のボルトを締める", desc: "上型を固定するボルトを締めます。", tip: "" },
-    id: { title: "Kencangkan baut cetakan atas", desc: "Kencangkan baut yang menahan cetakan atas.", tip: "" },
+    id: { title: "KENCANGKAN BAUT ATAS", desc: "", tip: "" },
     image: "images/step04.jpg"
   },
   {
     ja: { title: "下型のボルトを仮止めする", desc: "下型のボルトを仮止め（軽く締める）します。", tip: "" },
-    id: { title: "Kencangkan sementara baut cetakan bawah", desc: "Kencangkan sementara (tidak full) baut cetakan bawah.", tip: "" },
+    id: { title: "BAUT BAWAH TETAP PALAM POSISI LONGGAR", desc: "", tip: "" },
     image: "images/step05.jpg"
   },
   {
     ja: { title: "上死点 → 下死点（上型と下型を合わせる）", desc: "上死点から下死点まで動かして、上型と下型を合わせます。", tip: "" },
-    id: { title: "Titik mati atas → titik mati bawah (sesuaikan cetakan atas dan bawah)", desc: "Gerakkan dari titik mati atas ke titik mati bawah untuk menyesuaikan cetakan atas dan bawah.", tip: "" },
+    id: { title: "NAIKAN KE ATAS → TURUNKAN KE BAWAH (SEJAJARKAN CETAKAN ATAS DAN BAWAH)", desc: "", tip: "" },
     image: "images/step06.jpg"
   },
   {
     ja: { title: "下型のボルトを締める", desc: "位置が合ったら、下型のボルトを本締めします。", tip: "" },
-    id: { title: "Kencangkan baut cetakan bawah", desc: "Setelah posisi pas, kencangkan baut cetakan bawah sepenuhnya.", tip: "" },
+    id: { title: "KENCANGKAN BAUT BAWAH", desc: "", tip: "" },
     image: "images/step07.jpg"
   },
   {
     ja: { title: "上死点にする（355～5）", desc: "プレスを上死点（355～5）まで戻します。", tip: "" },
-    id: { title: "Posisikan ke titik mati atas (355–5)", desc: "Kembalikan press ke titik mati atas (355–5).", tip: "" },
+    id: { title: "NAIKKAN KE ATAS (355~5)", desc: "", tip: "" },
     image: "images/step08.jpg"
   },
   {
     ja: { title: "安全一工程にする", desc: "運転モードを「安全一工程」に切り替えます。", tip: "" },
-    id: { title: "Atur ke mode aman satu langkah (安全一工程)", desc: "Ubah mode operasi ke 安全一工程 (aman satu langkah).", tip: "" },
+    id: { title: "SETEL KE MODE ANZEN", desc: "", tip: "" },
     image: "images/step09.jpg"
   },
   {
     ja: { title: "スピードを早くする", desc: "運転スピードを上げます。", tip: "" },
-    id: { title: "Naikkan kecepatan", desc: "Naikkan kecepatan operasi.", tip: "" },
+    id: { title: "CEPATKAN SPEED", desc: "", tip: "" },
     image: "images/step10.jpg"
   },
   {
     ja: { title: "カウンターを入れる", desc: "カウンターをセットして、ショット数のカウントを開始します。", tip: "" },
-    id: { title: "Pasang counter", desc: "Atur counter untuk mulai menghitung jumlah shot.", tip: "" },
+    id: { title: "NYALAKAN COUNTER", desc: "", tip: "" },
     image: "images/step11.jpg"
   },
   {
     ja: { title: "記録シートに記入する（DHを確認する）", desc: "記録シートに必要事項を記入し、最後にDHを再確認します。", tip: "" },
-    id: { title: "Isi lembar pencatatan (periksa DH)", desc: "Isi lembar pencatatan dan periksa kembali DH di akhir.", tip: "" },
+    id: { title: "ISI LEMBAR CATATAN (KONFIRMASI DH)", desc: "", tip: "" },
     image: "images/step12.jpg"
   }
 ];
@@ -371,7 +371,7 @@ const I18N = {
     finish: "完了"
   },
   id: {
-    pageTitle: "Prosedur Persiapan Cetakan",
+    pageTitle: "KANAGATA YANG SUDAH DITETAPAKAN DH",
     intro: "Tap setiap langkah secara berurutan, lalu ikuti instruksi sambil melihat gambar.",
     placeholder: "Gambar akan ditambahkan nanti",
     tipLabel: "TIPS / POIN PENTING",
@@ -419,7 +419,9 @@ function showDetail(i) {
 
   $("detailNum").textContent = i + 1;
   $("detailTitle").textContent = step[currentLang].title;
-  $("detailDesc").textContent = step[currentLang].desc;
+  const desc = step[currentLang].desc;
+  $("detailDesc").textContent = desc;
+  $("detailDesc").style.display = desc ? "block" : "none";
   $("tipLabel").textContent = t.tipLabel;
 
   const tipEl = $("detailTip");
