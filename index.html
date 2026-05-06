@@ -335,6 +335,7 @@
 const PROCEDURES = {
   setup: {
     label: { ja: "段取り", id: "PASANG" },
+    pageTitle: { ja: "金型段取り手順書", id: "KANAGATA YANG SUDAH DITETAPAKAN DH" },
     steps: [
       {
         ja: { title: "DHを合わせる", desc: "ダイハイト（DH）を金型に合った値に設定します。", tip: "" },
@@ -399,41 +400,42 @@ const PROCEDURES = {
     ]
   },
   remove: {
-    label: { ja: "外し方", id: "LEPAS" },
+    label: { ja: "外し方", id: "MELEPAS" },
+    pageTitle: { ja: "金型外し方手順書", id: "MELEPAS KANAGATA" },
     steps: [
       {
         ja: { title: "DCのエアーを抜く", desc: "DCのエアーを抜きます。", tip: "" },
-        id: { title: "KELUARKAN UDARA DC", desc: "", tip: "" },
+        id: { title: "DC angin di lepas/dikembalikan ke 0", desc: "", tip: "" },
         image: "images/remove01.jpg"
       },
       {
         ja: { title: "寸動にする", desc: "運転モードを寸動に切り替えます。", tip: "" },
-        id: { title: "SETEL KE MODE SUNDOU", desc: "", tip: "" },
+        id: { title: "konci di posisi yang macet/pelan-pelan(sundo)", desc: "", tip: "" },
         image: "images/remove02.jpg"
       },
       {
         ja: { title: "スピードを遅くする", desc: "運転スピードを下げます。", tip: "" },
-        id: { title: "PELANKAN SPEED", desc: "", tip: "" },
+        id: { title: "kecepatan dikecilin", desc: "", tip: "" },
         image: "images/remove03.jpg"
       },
       {
         ja: { title: "カウンターを切る", desc: "カウンターをOFFにします。", tip: "" },
-        id: { title: "MATIKAN COUNTER", desc: "", tip: "" },
+        id: { title: "konter di stop/dihentikan", desc: "", tip: "" },
         image: "images/remove04.jpg"
       },
       {
         ja: { title: "下死点にする（180～183）", desc: "プレスを下死点（180～183）まで降ろします。", tip: "" },
-        id: { title: "TURUNKAN KE BAWAH (180~183)", desc: "", tip: "" },
+        id: { title: "putaran jarum paling bawah(180～185)", desc: "", tip: "" },
         image: "images/remove05.jpg"
       },
       {
         ja: { title: "上型と下型のボルトを外す", desc: "上型と下型を固定しているボルトをすべて外します。", tip: "" },
-        id: { title: "LEPASKAN BAUT ATAS DAN BAWAH", desc: "", tip: "" },
+        id: { title: "di cetakan atas dan bawah bautnya dilepas", desc: "", tip: "" },
         image: "images/remove06.jpg"
       },
       {
         ja: { title: "上死点にする（少しづつ上げる）", desc: "プレスを上死点まで、少しづつ慎重に上げます。", tip: "" },
-        id: { title: "NAIKKAN KE ATAS (PERLAHAN-LAHAN)", desc: "", tip: "" },
+        id: { title: "setelah baut dilepas naikin masin pres(pelan-pelan、355〜5)", desc: "", tip: "" },
         image: "images/remove07.jpg"
       }
     ]
@@ -483,7 +485,7 @@ function renderTabs() {
 
 function renderList() {
   const t = I18N[currentLang];
-  $("pageTitle").textContent = t.pageTitle;
+  $("pageTitle").textContent = PROCEDURES[currentProcedure].pageTitle[currentLang];
   $("introText").textContent = t.intro;
   document.documentElement.lang = currentLang;
 
