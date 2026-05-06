@@ -72,6 +72,38 @@
 
   main { padding: 16px; max-width: 720px; margin: 0 auto; }
 
+  /* Tabs */
+  .tabs {
+    display: flex;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 4px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    gap: 4px;
+  }
+  .tab-btn {
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: 12px 8px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-sub);
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background 0.2s, color 0.2s;
+    -webkit-tap-highlight-color: transparent;
+    font-family: inherit;
+  }
+  .tab-btn.active {
+    background: var(--primary);
+    color: white;
+  }
+  .tab-btn:active:not(.active) {
+    background: #eceff1;
+  }
+
   /* List view */
   .intro {
     background: var(--card);
@@ -262,8 +294,12 @@
 
 <main>
   <div id="listView">
+    <div class="tabs" id="tabs">
+      <button class="tab-btn active" data-proc="setup"></button>
+      <button class="tab-btn" data-proc="remove"></button>
+    </div>
     <div class="intro">
-      <p id="introText">下のステップを順番にタップして、画像と説明を見ながら段取りを進めてください。</p>
+      <p id="introText">下のステップを順番にタップして、画像と説明を見ながら作業を進めてください。</p>
     </div>
     <div class="steps-list" id="stepsList"></div>
   </div>
@@ -292,77 +328,122 @@
     </div>
   </div>
 
-  <footer>金型段取り手順書 v0.1</footer>
+  <footer>金型 段取り・外し方手順書 v0.2</footer>
 </main>
 
 <script>
-const STEPS = [
-  {
-    ja: { title: "DHを合わせる", desc: "ダイハイト（DH）を金型に合った値に設定します。", tip: "" },
-    id: { title: "MENCOCOKAN DH", desc: "", tip: "" },
-    image: "images/step01.jpg"
+const PROCEDURES = {
+  setup: {
+    label: { ja: "段取り", id: "PASANG" },
+    steps: [
+      {
+        ja: { title: "DHを合わせる", desc: "ダイハイト（DH）を金型に合った値に設定します。", tip: "" },
+        id: { title: "MENCOCOKAN DH", desc: "", tip: "" },
+        image: "images/setup01.jpg"
+      },
+      {
+        ja: { title: "シャンクを入れる（前と横を見て確認する）", desc: "シャンクを差し込み、前方と側方の両方から位置を目視で確認します。", tip: "" },
+        id: { title: "MASUKAN SHANKU (LIHAT BAGIAN DEPAN DAN SAMPING)", desc: "", tip: "" },
+        image: "images/setup02.jpg"
+      },
+      {
+        ja: { title: "下死点にする（180～183）", desc: "プレスを下死点（180～183）まで降ろします。", tip: "" },
+        id: { title: "TURUNKAN KE BAWAH (180~183)", desc: "", tip: "" },
+        image: "images/setup03.jpg"
+      },
+      {
+        ja: { title: "上型のボルトを締める", desc: "上型を固定するボルトを締めます。", tip: "" },
+        id: { title: "KENCANGKAN BAUT ATAS", desc: "", tip: "" },
+        image: "images/setup04.jpg"
+      },
+      {
+        ja: { title: "下型のボルトを仮止めする", desc: "下型のボルトを仮止め（軽く締める）します。", tip: "" },
+        id: { title: "BAUT BAWAH TETAP PALAM POSISI LONGGAR", desc: "", tip: "" },
+        image: "images/setup05.jpg"
+      },
+      {
+        ja: { title: "上死点 → 下死点（上型と下型を合わせる）", desc: "上死点から下死点まで動かして、上型と下型を合わせます。", tip: "" },
+        id: { title: "NAIKAN KE ATAS → TURUNKAN KE BAWAH (SEJAJARKAN CETAKAN ATAS DAN BAWAH)", desc: "", tip: "" },
+        image: "images/setup06.jpg"
+      },
+      {
+        ja: { title: "下型のボルトを締める", desc: "位置が合ったら、下型のボルトを本締めします。", tip: "" },
+        id: { title: "KENCANGKAN BAUT BAWAH", desc: "", tip: "" },
+        image: "images/setup07.jpg"
+      },
+      {
+        ja: { title: "上死点にする（355～5）", desc: "プレスを上死点（355～5）まで戻します。", tip: "" },
+        id: { title: "NAIKKAN KE ATAS (355~5)", desc: "", tip: "" },
+        image: "images/setup08.jpg"
+      },
+      {
+        ja: { title: "安全一工程にする", desc: "運転モードを「安全一工程」に切り替えます。", tip: "" },
+        id: { title: "SETEL KE MODE ANZEN", desc: "", tip: "" },
+        image: "images/setup09.jpg"
+      },
+      {
+        ja: { title: "スピードを早くする", desc: "運転スピードを上げます。", tip: "" },
+        id: { title: "CEPATKAN SPEED", desc: "", tip: "" },
+        image: "images/setup10.jpg"
+      },
+      {
+        ja: { title: "カウンターを入れる", desc: "カウンターをセットして、ショット数のカウントを開始します。", tip: "" },
+        id: { title: "NYALAKAN COUNTER", desc: "", tip: "" },
+        image: "images/setup11.jpg"
+      },
+      {
+        ja: { title: "記録シートに記入する（DHを確認する）", desc: "記録シートに必要事項を記入し、最後にDHを再確認します。", tip: "" },
+        id: { title: "ISI LEMBAR CATATAN (KONFIRMASI DH)", desc: "", tip: "" },
+        image: "images/setup12.jpg"
+      }
+    ]
   },
-  {
-    ja: { title: "シャンクを入れる（前と横を見て確認する）", desc: "シャンクを差し込み、前方と側方の両方から位置を目視で確認します。", tip: "" },
-    id: { title: "MASUKAN SHANKU (LIHAT BAGIAN DEPAN DAN SAMPING)", desc: "", tip: "" },
-    image: "images/step02.jpg"
-  },
-  {
-    ja: { title: "下死点にする（180～183）", desc: "プレスを下死点（180～183）まで降ろします。", tip: "" },
-    id: { title: "TURUNKAN KE BAWAH (180~183)", desc: "", tip: "" },
-    image: "images/step03.jpg"
-  },
-  {
-    ja: { title: "上型のボルトを締める", desc: "上型を固定するボルトを締めます。", tip: "" },
-    id: { title: "KENCANGKAN BAUT ATAS", desc: "", tip: "" },
-    image: "images/step04.jpg"
-  },
-  {
-    ja: { title: "下型のボルトを仮止めする", desc: "下型のボルトを仮止め（軽く締める）します。", tip: "" },
-    id: { title: "BAUT BAWAH TETAP PALAM POSISI LONGGAR", desc: "", tip: "" },
-    image: "images/step05.jpg"
-  },
-  {
-    ja: { title: "上死点 → 下死点（上型と下型を合わせる）", desc: "上死点から下死点まで動かして、上型と下型を合わせます。", tip: "" },
-    id: { title: "NAIKAN KE ATAS → TURUNKAN KE BAWAH (SEJAJARKAN CETAKAN ATAS DAN BAWAH)", desc: "", tip: "" },
-    image: "images/step06.jpg"
-  },
-  {
-    ja: { title: "下型のボルトを締める", desc: "位置が合ったら、下型のボルトを本締めします。", tip: "" },
-    id: { title: "KENCANGKAN BAUT BAWAH", desc: "", tip: "" },
-    image: "images/step07.jpg"
-  },
-  {
-    ja: { title: "上死点にする（355～5）", desc: "プレスを上死点（355～5）まで戻します。", tip: "" },
-    id: { title: "NAIKKAN KE ATAS (355~5)", desc: "", tip: "" },
-    image: "images/step08.jpg"
-  },
-  {
-    ja: { title: "安全一工程にする", desc: "運転モードを「安全一工程」に切り替えます。", tip: "" },
-    id: { title: "SETEL KE MODE ANZEN", desc: "", tip: "" },
-    image: "images/step09.jpg"
-  },
-  {
-    ja: { title: "スピードを早くする", desc: "運転スピードを上げます。", tip: "" },
-    id: { title: "CEPATKAN SPEED", desc: "", tip: "" },
-    image: "images/step10.jpg"
-  },
-  {
-    ja: { title: "カウンターを入れる", desc: "カウンターをセットして、ショット数のカウントを開始します。", tip: "" },
-    id: { title: "NYALAKAN COUNTER", desc: "", tip: "" },
-    image: "images/step11.jpg"
-  },
-  {
-    ja: { title: "記録シートに記入する（DHを確認する）", desc: "記録シートに必要事項を記入し、最後にDHを再確認します。", tip: "" },
-    id: { title: "ISI LEMBAR CATATAN (KONFIRMASI DH)", desc: "", tip: "" },
-    image: "images/step12.jpg"
+  remove: {
+    label: { ja: "外し方", id: "LEPAS" },
+    steps: [
+      {
+        ja: { title: "DCのエアーを抜く", desc: "DCのエアーを抜きます。", tip: "" },
+        id: { title: "KELUARKAN UDARA DC", desc: "", tip: "" },
+        image: "images/remove01.jpg"
+      },
+      {
+        ja: { title: "寸動にする", desc: "運転モードを寸動に切り替えます。", tip: "" },
+        id: { title: "SETEL KE MODE SUNDOU", desc: "", tip: "" },
+        image: "images/remove02.jpg"
+      },
+      {
+        ja: { title: "スピードを遅くする", desc: "運転スピードを下げます。", tip: "" },
+        id: { title: "PELANKAN SPEED", desc: "", tip: "" },
+        image: "images/remove03.jpg"
+      },
+      {
+        ja: { title: "カウンターを切る", desc: "カウンターをOFFにします。", tip: "" },
+        id: { title: "MATIKAN COUNTER", desc: "", tip: "" },
+        image: "images/remove04.jpg"
+      },
+      {
+        ja: { title: "下死点にする（180～183）", desc: "プレスを下死点（180～183）まで降ろします。", tip: "" },
+        id: { title: "TURUNKAN KE BAWAH (180~183)", desc: "", tip: "" },
+        image: "images/remove05.jpg"
+      },
+      {
+        ja: { title: "上型と下型のボルトを外す", desc: "上型と下型を固定しているボルトをすべて外します。", tip: "" },
+        id: { title: "LEPASKAN BAUT ATAS DAN BAWAH", desc: "", tip: "" },
+        image: "images/remove06.jpg"
+      },
+      {
+        ja: { title: "上死点にする（少しづつ上げる）", desc: "プレスを上死点まで、少しづつ慎重に上げます。", tip: "" },
+        id: { title: "NAIKKAN KE ATAS (PERLAHAN-LAHAN)", desc: "", tip: "" },
+        image: "images/remove07.jpg"
+      }
+    ]
   }
-];
+};
 
 const I18N = {
   ja: {
     pageTitle: "金型段取り手順書",
-    intro: "下のステップを順番にタップして、画像と説明を見ながら段取りを進めてください。",
+    intro: "下のステップを順番にタップして、画像と説明を見ながら作業を進めてください。",
     placeholder: "画像はあとで追加します",
     tipLabel: "ポイント / コツ",
     tipEmpty: "（あとで追記）",
@@ -383,9 +464,22 @@ const I18N = {
 };
 
 let currentLang = localStorage.getItem("lang") || "ja";
+let currentProcedure = localStorage.getItem("procedure") || "setup";
 let currentStep = null;
 
 const $ = (id) => document.getElementById(id);
+
+function getSteps() {
+  return PROCEDURES[currentProcedure].steps;
+}
+
+function renderTabs() {
+  document.querySelectorAll(".tab-btn").forEach((btn) => {
+    const proc = btn.dataset.proc;
+    btn.textContent = PROCEDURES[proc].label[currentLang];
+    btn.classList.toggle("active", proc === currentProcedure);
+  });
+}
 
 function renderList() {
   const t = I18N[currentLang];
@@ -393,9 +487,11 @@ function renderList() {
   $("introText").textContent = t.intro;
   document.documentElement.lang = currentLang;
 
+  renderTabs();
+
   const list = $("stepsList");
   list.innerHTML = "";
-  STEPS.forEach((step, i) => {
+  getSteps().forEach((step, i) => {
     const card = document.createElement("div");
     card.className = "step-card";
     card.innerHTML = `
@@ -410,7 +506,8 @@ function renderList() {
 
 function showDetail(i) {
   currentStep = i;
-  const step = STEPS[i];
+  const steps = getSteps();
+  const step = steps[i];
   const t = I18N[currentLang];
 
   $("listView").style.display = "none";
@@ -450,7 +547,6 @@ function showDetail(i) {
     wrap.innerHTML = "";
     wrap.appendChild(img);
   };
-  // show placeholder while loading
   wrap.innerHTML = `
     <div class="image-placeholder">
       <div class="icon">📷</div>
@@ -460,10 +556,10 @@ function showDetail(i) {
   $("prevBtn").disabled = i === 0;
   $("nextBtn").disabled = false;
   $("prevLabel").textContent = t.prev;
-  $("nextLabel").textContent = i === STEPS.length - 1 ? t.finish : t.next;
+  $("nextLabel").textContent = i === steps.length - 1 ? t.finish : t.next;
 
   window.scrollTo({ top: 0, behavior: "instant" });
-  location.hash = "#step" + (i + 1);
+  location.hash = "#" + currentProcedure + "-step" + (i + 1);
 }
 
 function showList() {
@@ -480,11 +576,20 @@ $("prevBtn").addEventListener("click", () => {
   if (currentStep > 0) showDetail(currentStep - 1);
 });
 $("nextBtn").addEventListener("click", () => {
-  if (currentStep < STEPS.length - 1) {
+  const steps = getSteps();
+  if (currentStep < steps.length - 1) {
     showDetail(currentStep + 1);
   } else {
     showList();
   }
+});
+
+document.querySelectorAll(".tab-btn").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    currentProcedure = btn.dataset.proc;
+    localStorage.setItem("procedure", currentProcedure);
+    renderList();
+  });
 });
 
 document.querySelectorAll(".lang-btn").forEach((btn) => {
@@ -510,13 +615,14 @@ document.querySelectorAll(".lang-btn").forEach((b) =>
 renderList();
 
 // hash routing (allows direct link to a step)
-const m = location.hash.match(/^#step(\d+)$/);
+const m = location.hash.match(/^#(setup|remove)-step(\d+)$/);
 if (m) {
-  const idx = parseInt(m[1], 10) - 1;
-  if (idx >= 0 && idx < STEPS.length) showDetail(idx);
+  currentProcedure = m[1];
+  const idx = parseInt(m[2], 10) - 1;
+  renderList();
+  if (idx >= 0 && idx < getSteps().length) showDetail(idx);
 }
 
-// Android back button → list view
 window.addEventListener("popstate", () => {
   if (currentStep !== null && !location.hash) showList();
 });
