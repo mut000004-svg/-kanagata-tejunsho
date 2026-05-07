@@ -328,38 +328,38 @@
     </div>
   </div>
 
-  <footer>金型 段取り・外し方手順書 v0.2</footer>
+  <footer>金型 付け方・外し方手順書 v0.3</footer>
 </main>
 
 <script>
 const PROCEDURES = {
   setup: {
-    label: { ja: "段取り", id: "PASANG" },
-    pageTitle: { ja: "金型段取り手順書", id: "KANAGATA YANG SUDAH DITETAPAKAN DH" },
+    label: { ja: "付け方", id: "PASANG" },
+    pageTitle: { ja: "金型付け方手順書", id: "KANAGATA YANG SUDAH DITETAPAKAN DH" },
     steps: [
       {
-        ja: { title: "DHを合わせる", desc: "ダイハイト（DH）を金型に合った値に設定します。", tip: "" },
-        id: { title: "MENCOCOKAN DH", desc: "", tip: "" },
+        ja: { title: "DHを合わせる", desc: "ダイハイト（DH）を金型に合った値に設定します。", tip: "金型の正面か右に書いてある。わからない場合は部長に聞く。" },
+        id: { title: "MENCOCOKAN DH", desc: "", tip: "DH tertulis di depan atau samping kanan kanagata. Tanya buchou kalau tidak tahu." },
         image: "setup01.jpg"
       },
       {
-        ja: { title: "シャンクを入れる（前と横を見て確認する）", desc: "シャンクを差し込み、前方と側方の両方から位置を目視で確認します。", tip: "" },
-        id: { title: "MASUKAN SHANKU (LIHAT BAGIAN DEPAN DAN SAMPING)", desc: "", tip: "" },
+        ja: { title: "シャンクを入れる（前と横を見て確認する）", desc: "シャンクを差し込み、前方と側方の両方から位置を目視で確認します。", tip: "前と横から見てシャンクを穴に合わせる。" },
+        id: { title: "MASUKAN SHANKU (LIHAT BAGIAN DEPAN DAN SAMPING)", desc: "", tip: "Lihat dari depan dan samping, cocokan shanku ke lubangnya." },
         image: "setup02.jpg"
       },
       {
-        ja: { title: "下死点にする（180～183）", desc: "プレスを下死点（180～183）まで降ろします。", tip: "" },
-        id: { title: "TURUNKAN KE BAWAH (180~183)", desc: "", tip: "" },
+        ja: { title: "下死点にする（180～185）", desc: "プレスを下死点（180～185）まで降ろします。", tip: "U溝をプレス機のボルトの溝と合わせる。" },
+        id: { title: "TURUNKAN KE BAWAH (180~185)", desc: "", tip: "Cocokan U-mizo dengan alur baut mesin pres." },
         image: "setup03.jpg"
       },
       {
-        ja: { title: "上型のボルトを締める", desc: "上型を固定するボルトを締めます。", tip: "" },
-        id: { title: "KENCANGKAN BAUT ATAS", desc: "", tip: "" },
+        ja: { title: "上型のボルトを締める", desc: "上型を固定するボルトを締めます。", tip: "押すより引く方が力が入る。" },
+        id: { title: "KENCANGKAN BAUT ATAS", desc: "", tip: "Lebih kuat menarik daripada mendorong." },
         image: "setup04.jpg"
       },
       {
-        ja: { title: "下型のボルトを仮止めする", desc: "下型のボルトを仮止め（軽く締める）します。", tip: "" },
-        id: { title: "BAUT BAWAH TETAP PALAM POSISI LONGGAR", desc: "", tip: "" },
+        ja: { title: "下型のボルトを仮止めする", desc: "下型のボルトを仮止め（軽く締める）します。", tip: "手で締める。" },
+        id: { title: "BAUT BAWAH TETAP PALAM POSISI LONGGAR", desc: "", tip: "Cukup kencangkan dengan tangan." },
         image: "setup05.jpg"
       },
       {
@@ -424,7 +424,7 @@ const PROCEDURES = {
         image: "remove04.jpg"
       },
       {
-        ja: { title: "下死点にする（180～183）", desc: "プレスを下死点（180～183）まで降ろします。", tip: "" },
+        ja: { title: "下死点にする（180～185）", desc: "プレスを下死点（180～185）まで降ろします。", tip: "" },
         id: { title: "putaran jarum paling bawah(180～185)", desc: "", tip: "" },
         image: "remove05.jpg"
       },
@@ -434,8 +434,8 @@ const PROCEDURES = {
         image: "remove06.jpg"
       },
       {
-        ja: { title: "上死点にする（少しづつ上げる）", desc: "プレスを上死点まで、少しづつ慎重に上げます。", tip: "" },
-        id: { title: "setelah baut dilepas naikin masin pres(pelan-pelan、355〜5)", desc: "", tip: "" },
+        ja: { title: "上死点にする（少しづつ上げる）", desc: "プレスを上死点まで、少しづつ慎重に上げます。", tip: "油で上型がスライドにくっついて上がる場合があるから、隙間ができるまで少しづつ上げる。" },
+        id: { title: "setelah baut dilepas naikin masin pres(pelan-pelan、355〜5)", desc: "", tip: "Karena oli, cetakan atas bisa ikut terangkat menempel ke slide. Naikkan pelan-pelan sampai ada celah." },
         image: "remove07.jpg"
       }
     ]
